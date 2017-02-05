@@ -4,10 +4,16 @@ import mysql.connector
 cnx = mysql.connector.connect(user='root',password='soccer',host='localhost',database='elliot_edmunds')
 cursor = cnx.cursor()
 
-'''
+
 add_model = ("INSERT INTO new_models "
              "(maker, model, model_year, model_id) "
              "VALUES (%s, %s, %s, %s)")
+
+#modelsdict is a dictionary of all new car models gotten from the Edmunds API using:
+# http://api.edmunds.com/api/vehicle/v2/makes?fmt=json&state=new&api_key={your API key}
+#This is looped through to build the new_models table using the maker nicename, model nicename, model_year and model_id
+#That table is queried to call the Edmunds API to build the vehicle_info table using the style information
+
 
 modelsdict = {
     "makes": [{
@@ -5709,7 +5715,7 @@ for i in (modelsdict['makes']):
             cursor.execute(add_model,data_model)
             count+=1
 print (count)
-'''
+
 
 
 
