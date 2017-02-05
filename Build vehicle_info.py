@@ -1,7 +1,7 @@
 from __future__ import print_function
 import mysql.connector
 from edmunds import edmunds
-api = edmunds.Edmunds('fpbmqm5rcqz6strkpxkfy48q')
+api = edmunds.Edmunds({your api key})
 
 cnx = mysql.connector.connect(user='root',password='soccer',host='localhost',database='elliot_edmunds')
 cursor = cnx.cursor()
