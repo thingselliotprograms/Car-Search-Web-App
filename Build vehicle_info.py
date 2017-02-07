@@ -1,14 +1,14 @@
 from __future__ import print_function
 import mysql.connector
 from edmunds import edmunds
-api = edmunds.Edmunds({your api key})
+api = edmunds.Edmunds('fpbmqm5rcqz6strkpxkfy48q')
 
 cnx = mysql.connector.connect(user='root',password='soccer',host='localhost',database='elliot_edmunds')
 cursor = cnx.cursor()
 
 allstylesdata=[] #this will hold the cursor data sets for each style of each model queried from new_models
 
-query=("SELECT maker,model,model_year,model_id FROM new_models WHERE maker='alfa-romeo'")
+query=("SELECT maker,model,model_year,model_id FROM new_models WHERE maker='audi' AND model_year=2016")
 cursor.execute(query)
 for (maker,model,model_year,model_id) in cursor:
     makerstr = str(model_id)
@@ -23,14 +23,49 @@ for (maker,model,model_year,model_id) in cursor:
         submodelset = i['submodel'];
         yearset = i['year'];
         style = i['id'];
-        engineset = i['engine'];
-        transset = i['transmission'];
-        drivenWh = i['drivenWheels'];
-        numdoors = i['numOfDoors'];
-        priceset = i['price'];
-        mpgset = i['MPG'];
+        try:
+            engineset = i['engine'];
+            try:
+                engineset_torque = engineset['torque'];
+            except:
+                engineset['torque']=""
+        except:
+            engineset = {
+                "horsepower":0,
+                "cylinder":0,
+                "size":0,
+                "torque":0,
+                "type":""
+                }
+
+        try:
+            transset = i['transmission'];
+        except:
+            transset = {
+                "transmissionType":"",
+                "numberOfSpeeds":""
+                }
+        try:
+            drivenWh = i['drivenWheels'];
+        except:
+            drivenWh = "";
+        try:
+            numdoors = i['numOfDoors'];
+        except:
+            numdoors = "";
+        try:
+            priceset = i['price'];
+        except:
+            priceset = "";
+        try:
+            mpgset = i['MPG'];
+        except:
+            mpgset = {
+                "highway":"",
+                "city":""
+                }
         detailedname = i['name'];
-        mpgset = i['MPG'];
+        print (makeset['name'],modelset['name'],submodelset['modelName'],yearset['year'],yearset['id'],style,engineset['horsepower'],engineset['cylinder'],engineset['size'],engineset['torque'],engineset['type'],transset['transmissionType'],transset['numberOfSpeeds'],drivenWh,numdoors,priceset['baseMSRP'],detailedname,mpgset['highway'],mpgset['city'])
         style_data = (makeset['name'],modelset['name'],submodelset['modelName'],yearset['year'],yearset['id'],style,engineset['horsepower'],engineset['cylinder'],engineset['size'],engineset['torque'],engineset['type'],transset['transmissionType'],transset['numberOfSpeeds'],drivenWh,numdoors,priceset['baseMSRP'],detailedname,mpgset['highway'],mpgset['city'])
         allstylesdata.append(style_data)
 
