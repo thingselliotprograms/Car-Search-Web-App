@@ -25,10 +25,18 @@ session = create_session(bind=engine)
 
 @carapp.route('/')
 @carapp.route('/mainsite/')
-def random():
+def mainsite():
     makers = session.query(Vehicle_Info.maker).distinct().order_by(Vehicle_Info.maker)
-    models = session.query(New_Models).order_by('maker').all()
-    return render_template("carmodellist.html",models=models,makers=makers)
+    count = 0
+    for maker in makers:
+        count+=1
+    return render_template("carmodellist.html",makers=makers,count=count)
+
+@carapp.route('/mainsite/<maker>/', methods=['GET','POST'])
+def makerStyles(maker):
+    styles = session.query(Vehicle_Info).filter_by(maker = maker).all()
+    return render_template("makerstylelist.html",styles=styles)
+
 
 
 if __name__ == '__main__':
