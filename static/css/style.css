@@ -1,1 +1,30 @@
+* {box-sizing:border-box;}
+body {background-color:whitesmoke}
 
+.mainselect {
+    background-color:lightcoral;
+    height:200px;
+    color:whitesmoke;
+    text-align:center;
+    border:1px solid white;
+}
+
+.mainselect:hover {
+    background-color: whitesmoke;
+    color: lightcoral;
+}
+
+.jumbotron {
+    background-color:#7a40e6;
+    color:whitesmoke;
+}
+
+#maseratimodels {
+    margin-bottom:40px;
+}
+
+.col-sm-1 {
+    width:auto;
+    outline:1px solid #7a40e6;
+    margin: 3px;
+}
