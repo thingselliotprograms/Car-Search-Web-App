@@ -27,14 +27,36 @@ session = create_session(bind=engine)
 @carapp.route('/mainsite/')
 def mainsite():
     makers = session.query(Vehicle_Info.maker).distinct().order_by(Vehicle_Info.maker)
+    hpstyles = session.query(Vehicle_Info).order_by(Vehicle_Info.hp.desc()).limit(100)
     count = 0
     for maker in makers:
         count+=1
-    return render_template("carmodellist.html",makers=makers,count=count)
+    return render_template("carmodellist.html",makers=makers,count=count,hpstyles=hpstyles)
+
+@carapp.route('/_add_numbers')
+def add_numbers():
+    response= {}
+    styles = session.query(Vehicle_Info.model).distinct().filter_by(maker = 'Maserati')
+    for i in styles:
+        response[i.model]=i.model
+    a = request.args.get('a', 0, type=int)
+    b = request.args.get('b', 0, type=int)
+    response["result"]=(a+b)
+    response["car"]="Maserati Models"
+    return jsonify(response)
+
+@carapp.route('/modelssamepage')
+def models_same_page():
+    response = {}
+    makerjson = request.args.get('maker')
+    styles = session.query(Vehicle_Info.model).distinct().filter_by(maker = makerjson)
+    for i in styles:
+        response[i.model]=i.model
+    return jsonify(response);
 
 @carapp.route('/mainsite/<maker>/', methods=['GET','POST'])
 def makerStyles(maker):
-    styles = session.query(Vehicle_Info).filter_by(maker = maker).all()
+    styles = session.query(Vehicle_Info.model).distinct().filter_by(maker = maker)
     return render_template("makerstylelist.html",styles=styles)
 
 
