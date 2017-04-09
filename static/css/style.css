@@ -94,7 +94,7 @@ body {background-color:#D1C4E9}
     bottom:5px;
 }
 
-.list-group-item {
+.results-items {
     min-height:300px;
     /*background-image:url(https://www.lamborghini.com/en-en/sites/en-en/files/DAM/lamborghini/model/aventador/aventador-sv/slider/aventador-sv.jpg);
     background-size:contain;*/
@@ -102,4 +102,15 @@ body {background-color:#D1C4E9}
 
 .extra-info p {
     margin:0px;
+}
+
+i {
+    font-size:50px;
+    vertical-align:middle;
+    padding:10px;
+}
+
+img {
+    height:63px;
+    width:auto;
 }
