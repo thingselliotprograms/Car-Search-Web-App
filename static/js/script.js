@@ -53,11 +53,17 @@ $(document).ready(function () {
                 $.each(data, function (key, value) {
                     console.log(data[key])
                     x = data[key]
-                    $('#model-styles-list').append("<li class='list-group-item'><h3>"
-                        + x['model_year'] + " " + x['submodel_name'] + "</h3>"
-                        + "<p>" + x['detailed_name'] + "</p>" +
-                        "<p>$" + x['price'] + "</p>" +
-                        "</li>")
+                    $('#model-styles-list').append("<li class='list-group-item results-items'><h3>"
+                            + "<span>" + x['model_year'] + " " + x['maker'] + " " + x['submodel_name'] + "</span>" +
+                            "<span style='float:right;padding-right:15px'>$" + x['price'] + "</span></h3>"
+                            + "<p>" + x['detailed_name'] + "</p>" +
+                            "<div class='container-fluid extra-info'><p>Specifications:</p>" +
+                            "<p>Performance: " + x['hp'] + " Horsepower ------" + "Torque: " + x['torque'] + " lbf*ft</p>" +
+                            "<p>Engine: Type: " + x['engine_type'] + " ------ " + x['cylinders'] + " Cylinders ------ Size: " + x['engine_size'] + " Liters</p>" +
+                            "<p>Economy: Highway MPG: " + x['mpg_hw'] + " ------  City MPG: " + x['mpg_city'] + "</p>" +
+                            "<p>Transmission: Type: " + x['trans_type'] + " ------ Speeds: " + x['trans_num_speeds'] + "</p>" +
+                            "</div>" +
+                            "</li>")
                 })
 
             })
@@ -128,7 +134,7 @@ $(document).ready(function () {
                         console.log(data[key])
                         x = data[key]
                         $('#vehicle-results-list').append(
-                            "<li class='list-group-item'><h3>"
+                            "<li class='list-group-item results-items'><h3>"
                             + "<span>" + x['model_year'] + " " + x['maker'] + " " + x['submodel_name'] + "</span>" +
                             "<span style='float:right;padding-right:15px'>$" + x['price'] + "</span></h3>"
                             + "<p>" + x['detailed_name'] + "</p>" +
