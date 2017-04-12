@@ -12,7 +12,7 @@ from sqlalchemy.orm import sessionmaker, create_session
 from sqlalchemy import func, distinct
 
 Base = declarative_base()
-engine = create_engine('mysql+mysqlconnector://root:soccer@localhost/elliot_edmunds')
+engine = create_engine('mysql+mysqlconnector://root:*********@localhost/elliot_edmunds')
 metadata = MetaData(bind=engine)
 
 class New_Models(Base):
