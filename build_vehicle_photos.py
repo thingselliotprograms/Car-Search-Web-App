@@ -44,7 +44,7 @@ for i in range(len(modelsary)):
                     linktag = j['link']
                     photoblock['i']= 'http://media.ed.edmunds-media.com'+linktag['href']
                     icount += 1
-    cnx = mysql.connector.connect(user='root',password='soccer',host='localhost',database='elliot_edmunds')
+    cnx = mysql.connector.connect(*********************************)
     cursor = cnx.cursor()
     querystr = "SELECT model,style_id FROM vehicle_info WHERE model_id="+str(modelsary[i][3])
     query=(querystr)
@@ -57,7 +57,7 @@ for i in range(len(modelsary)):
     cursor.close()
     cnx.close()
 
-    cnx = mysql.connector.connect(user='root',password='soccer',host='localhost',database='elliot_edmunds')
+    cnx = mysql.connector.connect(************************************)
     cursor = cnx.cursor()
 
     for sty in styleary:
