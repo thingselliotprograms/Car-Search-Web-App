@@ -1,9 +1,9 @@
 from __future__ import print_function
 import mysql.connector
 from edmunds import edmunds
-api = edmunds.Edmunds('fpbmqm5rcqz6strkpxkfy48q')
+api = edmunds.Edmunds(*****************************)
 
-cnx = mysql.connector.connect(user='root',password='soccer',host='localhost',database='elliot_edmunds')
+cnx = mysql.connector.connect(********************************************)
 cursor = cnx.cursor()
 #get each model from new_models
 query=("SELECT maker,model,model_year,model_id FROM new_models WHERE maker='acura'")
