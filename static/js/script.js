@@ -29,7 +29,7 @@ $(document).ready(function () {
                 $('#maker-models').empty()
                 console.log(data);
                 $.each(data, function (key, value) {
-                    $('#maker-models').append("<li class='list-group-item'><a role='menuitem' class='model-list-item' href=#><h3>" + value + "</h3></a></li>")
+                    $('#maker-models').append("<li class='list-group-item'><a role='menuitem' class='model-list-item' href='#options'><h3>" + value + "</h3></a></li>")
                 });
             })
             return false;
@@ -53,10 +53,10 @@ $(document).ready(function () {
                 $.each(data, function (key, value) {
                     console.log(data[key])
                     x = data[key]
-                    $('#model-styles-list').append("<li class='list-group-item results-items'><h3>"
-                            + "<span>" + x['model_year'] + " " + x['maker'] + " " + x['submodel_name'] + "</span>" +
-                            "<span style='float:right;padding-right:15px'>$" + x['price'] + "</span></h3>"
-                            + "<p>" + x['detailed_name'] + "</p>" +
+                    $('#model-styles-list').append("<li class='list-group-item results-items' style='background-image:url("+x['img']+")'><h3>"
+                            + "<span class='styletitle'>" + x['model_year'] + " " + x['maker'] + " " + x['submodel_name'] + "</span>" +
+                            "<span class='styletitle' style='float:right;padding-right:15px'>$" + x['price'] + "</span></h3>"
+                            + "<p class='styletitle'>" + x['detailed_name'] + "</p>" +
                             "<div class='container-fluid extra-info'><p>Specifications:</p>" +
                             "<p>Performance: " + x['hp'] + " Horsepower ------" + "Torque: " + x['torque'] + " lbf*ft</p>" +
                             "<p>Engine: Type: " + x['engine_type'] + " ------ " + x['cylinders'] + " Cylinders ------ Size: " + x['engine_size'] + " Liters</p>" +
@@ -134,10 +134,10 @@ $(document).ready(function () {
                         console.log(data[key])
                         x = data[key]
                         $('#vehicle-results-list').append(
-                            "<li class='list-group-item results-items'><h3>"
-                            + "<span>" + x['model_year'] + " " + x['maker'] + " " + x['submodel_name'] + "</span>" +
-                            "<span style='float:right;padding-right:15px'>$" + x['price'] + "</span></h3>"
-                            + "<p>" + x['detailed_name'] + "</p>" +
+                            "<li class='list-group-item results-items' style='background-image:url(" + x['img'] + ")'><h3>"
+                            + "<span class='styletitle'>" + x['model_year'] + " " + x['maker'] + " " + x['submodel_name'] + "</span>" +
+                            "<span class='styletitle' style='float:right;padding-right:15px'>$" + x['price'] + "</span></h3>"
+                            + "<p class='styletitle'>" + x['detailed_name'] + "</p>" +
                             "<div class='container-fluid extra-info'><p>Specifications:</p>" +
                             "<p>Performance: "+x['hp']+" Horsepower ------"+ "Torque: "+x['torque']+ " lbf*ft</p>"+
                             "<p>Engine: Type: "+x['engine_type']+" ------ "+ x['cylinders'] + " Cylinders ------ Size: "+ x['engine_size']+" Liters</p>" +
@@ -147,6 +147,7 @@ $(document).ready(function () {
                             "</li>")
                     })
                 })
+                return false;
             }
             
         })
