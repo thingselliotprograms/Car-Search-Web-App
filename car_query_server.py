@@ -5,6 +5,7 @@ carapp = Flask(__name__)
 
 import mysql.connector
 
+import random
 import sys
 from sqlalchemy import *
 from sqlalchemy.ext.declarative import declarative_base
@@ -12,7 +13,7 @@ from sqlalchemy.orm import sessionmaker, create_session
 from sqlalchemy import func, distinct
 
 Base = declarative_base()
-engine = create_engine('mysql+mysqlconnector://root:*********@localhost/elliot_edmunds')
+engine = create_engine('mysql+mysqlconnector://root:soccer@localhost/elliot_edmunds')
 metadata = MetaData(bind=engine)
 
 class New_Models(Base):
@@ -20,6 +21,9 @@ class New_Models(Base):
 
 class Vehicle_Info(Base):
     __table__ = Table('vehicle_info', metadata, autoload=True)
+
+class Vehicle_Photos(Base):
+    __table__ = Table('vehicle_photos', metadata, autoload=True)
 
 session = create_session(bind=engine)
 
@@ -32,18 +36,6 @@ def mainsite():
     for maker in makers:
         count+=1
     return render_template("carmodellist.html",makers=makers,count=count,hpstyles=hpstyles)
-
-@carapp.route('/_add_numbers')
-def add_numbers():
-    response= {}
-    styles = session.query(Vehicle_Info.model).distinct().filter_by(maker = 'Maserati')
-    for i in styles:
-        response[i.model]=i.model
-    a = request.args.get('a', 0, type=int)
-    b = request.args.get('b', 0, type=int)
-    response["result"]=(a+b)
-    response["car"]="Maserati Models"
-    return jsonify(response)
 
 @carapp.route('/modelssamepage')
 def models_same_page():
@@ -143,6 +135,23 @@ def parse_styles(i):
     inner['detailed_name']=i.detailed_name
     inner['mpg_hw']=i.mpg_hw
     inner['mpg_city']=i.mpg_city
+    style_imgs = session.query(Vehicle_Photos).filter(Vehicle_Photos.style_id == i.style_id)
+    try:
+        row = style_imgs[0]
+        imgsary=[row.FQ_URL_1,row.FQ_URL_2,row.FQ_URL_3,row.FQ_URL_4,row.FQ_URL_5,row.FQ_URL_6,row.FQ_URL_7,row.FQ_URL_8,row.FQ_URL_9,row.I_URL]
+        hasDataary=[]
+        for piece in imgsary:
+            if piece!="":
+                hasDataary.append(piece)
+        x = random.randint(0,len(hasDataary)-1)
+        inner['img']=hasDataary[x]
+    except:
+        inner['img']="http://technology.edmunds.com/public/images/edmunds-technology.png"
+
+    
+
+    #for col in ('FQ_URL_1','FQ_URL_2','FQ_URL_3','FQ_URL_4','FQ_URL_5','FQ_URL_6','FQ_URL_7','FQ_URL_8','FQ_URL_9','I_URL'):
+     #   print (row['FQ_URL_1'])
     return inner
         
 
